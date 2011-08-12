@@ -1,0 +1,45 @@
+
+<h2>Manufacturing Statistics</h2>
+<p>Manufacturing Cost: <%= number_to_currency @item_bp.manufacturing_cost %> per unit*</p>
+<p>Manufacturing Time: <%= @item_bp.productionTime %> seconds</p>
+<p>Manufacturing Volume: <%= @item.portionSize %> units</p>
+
+<table>
+	<tr><th>Skill</th><th>Level</th></tr>
+<% @item_mr_skills.each do |ram| %>
+	<tr><td><%= ram.item.name %></td><td><%= ram.quantity %></td></tr>
+<% end %>
+</table>
+
+<h3>Manufacturing Materials</h3>
+<p>Waste Factor = <%= @item_bp.waste_factor %></p>
+<table>
+	<tr><th>Material</th><th>Value</th><th>Quantity</th><th>Damage</th></tr>
+<% @item.materials.each do |mat| %>
+	<tr><td><%= link_to mat.item.name, mat.item %></td><td><%= number_to_currency mat.item.market_data.value%></td><td><%= (mat.quantity * @item_bp.waste_factor).round %></td><td>100&#37;</td></tr>
+<% end %>
+<% @item_mr_items.each do |ram| %>
+	<tr>
+		<td><%= link_to ram.item.name, (ram.item) %></td>
+		<td><%= number_to_currency ram.item.market_data.value%></td><td><%= ram.quantity %></td><td><%= (ram.damagePerJob * 100).to_i %>&#37;</td></tr>
+<% end %>
+</table>
+
+<% if @item.parent_item %>
+<h2>Blueprint Invention</h2>
+<p>Invention Chance: <%= (@item_bp.invention_chance * 100).to_i %>&#37;</p>
+<p>Invention Cost: <%= number_to_currency @item_bp.invention_cost %> per attempt*
+	<br/>* The invention cost is included in the manufacturing cost above.</p>
+<table>
+	<tr><th>Item</th><th>Value</th><th>Quantity</th><th>Damage</th></tr>
+<% @item_bp.invention_requirements.each do |ram| %>
+	<tr><td><%= link_to ram.item.name, ram.item %></td><td><%= number_to_currency ram.item.market_data.value %></td><td><%= ram.quantity %></td>
+		<% if ram.item.data_interface? %>
+		<td>0&#37;</td>
+		<% else %>
+		<td><%= ram.damagePerJob * 100 %>&#37;</td>
+		<% end %>
+	</tr>
+<% end %>
+</table>
+<% end %>

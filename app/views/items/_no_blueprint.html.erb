@@ -1,0 +1,9 @@
+<h2>Manufacturing Statistics</h2>
+<p>Reprocessed Value: <%= @item.reprocess_value %> per unit</p>
+
+<table>
+	<tr><th>Item</th><th>Value</th><th>Reprocess</th></tr>
+<% @item.materials.each do |m| %>
+	<tr><td><%= m.item.name %></td><td><%= m.item.market_data.value %></td><td><%= m.quantity %></td></tr>
+<% end %>
+</table>

@@ -1,0 +1,55 @@
+
+<h1><%= @item.name %></h1>
+<h3><%= @item.category.name %>, <%= @item.group.name %>
+<% unless @item.published %>
+&nbsp;(Unpublished)
+<% end %>
+</h3>
+
+<div class="itemdata">
+
+<h2>Market Data</h2>
+<p>Median Price <%= number_to_currency @item_md.combined_median %></p>
+<table>
+	<tr><td>Daily Sell Volume</td><td><%= @item_md.sell_volume %></td></tr>
+	<tr><td>Median Sell Price</td><td><%= number_to_currency @item_md.sell_median %></td></tr>
+	<tr><td>Daily Buy Volume</td><td><%= @item_md.buy_volume %></td></tr>
+	<tr><td>Median Buy Price</td><td><%= number_to_currency @item_md.buy_median %></td></tr>
+</table>
+
+<% unless @item.materials.empty? %>
+<h2>Reprocessing Statistics</h2>
+<p>Reprocessed Value: <%= number_to_currency @item.reprocess_value %> per unit</p>
+
+<table>
+	<tr><th>Item</th><th>Value</th><th>Reprocess</th></tr>
+<% @item.materials.each do |m| %>
+	<tr><td><%= m.item.name %></td><td><%= number_to_currency m.item.market_data.value %></td><td><%= m.quantity %></td></tr>
+<% end %>
+</table>
+<% end %>
+
+<% if @item_bp %>
+	<%= render :partial=>'with_blueprint' %>
+<% end %>
+
+<h2>Variations</h2>
+<% parent = @item.parent_item || @item %>
+<table>
+	<tr><td><%= link_to parent.name, parent %></td><th>Tech I</th></tr>
+<% parent.meta_variants.sort.each do |m|  %>
+	<tr><td><%= link_to m.item.name, m.item %></td><th><%= m.meta_group.metaGroupName %></th></tr>
+<% end %>
+</table>
+
+<% if !@item.mineral? && !@item_assemblies.empty? %>
+<h2>Used In Production Of</h2>
+<p>
+<% @item_assemblies.each do |item| %>
+	<%= link_to item.name, item %><br/>
+<% end %>
+</p>
+<% end %>
+
+</div>
+

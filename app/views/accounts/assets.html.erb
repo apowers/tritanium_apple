@@ -1,0 +1,20 @@
+<h1>Assets for <%= @account.character_name %></h1>
+
+<%= render :partial=>'menu' %>
+
+<div class="itemdata">
+<table>
+<tr>
+	<th>Item</th>
+	<th>Location</th>
+	<th>Quantity</th>
+</tr>
+<% @assets.each do |asset| %>
+<% next unless InvTypes.find(:first, :conditions=>{:typeID=>asset.type_id}) %>
+<tr>
+	<td style="text-align:left"><%= link_to InvTypes.find(:first, :conditions=>{:typeID=>asset.type_id}).typeName, :controller=>'items', :action=>'show', :id=>asset.type_id %></td>
+	<td><%= asset.location_id %></td>
+	<td><%= asset.quantity %></td>
+</tr>
+<% end %>
+</table>

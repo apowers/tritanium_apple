@@ -1,0 +1,16 @@
+<% if @current_group %>
+	<h1><%= @current_group.name %></h1>
+<% else %>
+	<h1>EvE Market Items</h1>
+<% end %>
+	
+<p>
+<% @groups.each do |group| %>
+<%= link_to group.name, :id=>group.id %><br>
+<% end %>
+
+<% @items.each do |item| %>
+<%= link_to item.name, item %><br>
+<% end %>
+</p>
+

@@ -1,0 +1,30 @@
+<h1>Account Login</h1>
+
+<div class="menu">
+<table>
+<tr>
+	<td><%= link_to "Reset Password", :action=>:reset %></td>
+</tr>
+<tr>
+	<td><%= link_to "Create A New Account", new_account_path %></td>
+</tr>
+</table>
+</div>
+
+<div class="itemdata">
+<fieldset>
+<%= form_tag :action=>:login do %>
+<table>
+	<tr>
+		<th><label for="uid">User Name</label></th>
+		<td><%= text_field_tag :username %></td>
+	</tr>
+	<tr>
+		<th><label for="password">Password</label></th>
+		<td><%= password_field_tag :password %></td>
+	</tr>
+</table>
+<%= submit_tag "Login" %>
+<% end %>
+</fieldset>
+</div>

@@ -1,0 +1,9 @@
+Tritanium Apple Design Goals
+----
+Phase 1
+--
+Browse Market Items by category 
+Search by name
+Show various production-related stats for the
+(Browse by market item, show the blueprint attributes)
+Show market stats of item and cost to produce (no skills)

@@ -1,0 +1,29 @@
+<h1>Edit Account for <%= @account.username %></h1>
+
+<%= render :partial=>'menu' %>
+
+<div class="itemdata">
+<table>
+<%= form_for(:account, @account, :url=>account_path, :html=>{:method=>:put}) do |f| %>
+<%= f.error_messages %>
+<tr>
+	<th>User Name</th>
+	<td style="text-align:left"><%= @account.username %></td>
+	<td><%= f.hidden_field :username %></td>
+</tr>
+<tr>
+	<th>E-Mail</th>
+	<td style="text-align:left"><%= f.text_field :email %></td>
+</tr>
+<tr>
+	<th>EVE User ID</th>
+	<td style="text-align:left"><%= f.text_field :eve_id %></td>
+</tr>
+<tr>
+	<th>API Key</th>
+	<td style="text-align:left"><%= f.text_field :api_key %></td>
+</tr>
+</table>
+<p><%= f.submit "Update" %></p>
+<% end %>
+</div>

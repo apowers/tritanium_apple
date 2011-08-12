@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>The Tritanium Apple: <%= controller.controller_name.capitalize! %></title>
+  <%= stylesheet_link_tag 'default' %>
+</head>
+<body>
+
+<div id="navbar">
+<table>
+	<tr>
+    <td><%= link_to image_tag('/images/items_c.png', :border=>0, :alt=>'Items'), :controller=>'items', :action=>'index' %></td>
+<% if session[:account_id] && session[:account_id] > 0 %>
+	  <td><%= link_to image_tag('/images/market_c.png', :border=>0, :alt=>'Market'), :controller=>'market', :action=>'index', :id=>session[:account_id] %></td>
+	  <td><%= link_to image_tag('/images/products_c.png', :border=>0, :alt=>'Orders'), :controller=>'market', :action=>'show', :id=>session[:account_id] %></td>
+    <td><%= link_to image_tag('/images/account_c.png', :border=>0, :alt=>'Account'), :controller=>'account', :action=>'index' %></td>
+<% else %>
+	  <td><%= image_tag('/images/market_k.png', :border=>0, :alt=>'Market') %></td>
+	  <td><%= image_tag('/images/products_k.png', :border=>0, :alt=>'Portfolio') %></td>
+    <td><%= image_tag('/images/account_k.png', :border=>0, :alt=>'Account') %></td>
+<% end %>
+    <td><%= link_to image_tag('/images/about_c.png', :border=>0, :alt=>'About'), '/about' %></td>
+<% if session[:account_id] && session[:account_id] > 1 %>
+    <td><%= link_to image_tag('/images/logout_c.png', :border=>0, :alt=>'Log Out'), '/logout' %></td>
+<% else %>
+    <td><%= link_to image_tag('/images/login_c.png', :border=>0, :alt=>'Log In'), '/login' %></td>
+<% end %>
+	</tr>
+</table>
+</div>
+
+<fieldset id="search">
+<%= form_tag '/items', :method=>:get do %>
+<%= text_field_tag :name %>
+<%= submit_tag "Search Items" %>
+<% end %>
+</fieldset>
+
+<span id="headder">
+<img src="/images/top_image.jpg" width="1000" height="556" alt=""/>
+</span>
+
+<div id="main">
+<p style="color: lime"><%= flash[:message] %></p>
+<p style="color: silver"><%= flash[:notice] %></p>
+<p style="color: orange"><%= flash[:warning] %></p>
+
+<%= yield  %>
+
+<hr/>
+<p>
+<br/>Version 2011.1.1
+<br/>Hostmaster Kayn Otar, kayn.otar@gmail.com
+</p>
+
+<div id="footer"><img src="/images/footer.jpg" alt=""/></div>
+</div>
+
+</body>
+</html>

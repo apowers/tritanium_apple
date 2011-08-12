@@ -1,0 +1,13 @@
+Tritanium Apple Databases
+--
+These Databases are required by TA and can be downloaded from 
+http://wiki.eve-id.net/CCP_Database_Dump_Resources
+
+invTypes - items [Items]
+invMarketGroups - Self-linking tree of market groups; use instead of groups and categories [MarketGroups]
+invMetaGroups - used with invMetaGroups to find variants [MetaGroups]
+invMetaTypes - items of same invMetaTypes.metaGroupID are similar [MetaTypes]
+
+invBlueprintTypes - blueprints [Blueprints]
+invTypeMaterials - materials required for manufacture and reprocessing [BlueprintMaterials]
+ramTypeRequirements - additional items required by blueprints [BlueprintRams]?

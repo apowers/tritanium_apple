@@ -1,0 +1,31 @@
+<h1>Blueprint Portfolio for <%= @account.character_name %></h1>
+
+<%= render :partial=>'menu' %>
+
+<p>Listing <%=@blueprints.size%> blueprints.</p>
+
+<div class="itemdata">
+<table>
+<tr>
+	<th>Name</th>
+	<th>Marketed</th>
+	<th>Original</th>
+	<th>ME</th>
+	<th>PE</th>
+	<th colspan=2>Portfolio</th>
+</tr>
+<% @blueprints.sort.each do |bp| %>
+<tr>
+	<% item = InvTypes.find(:first, :conditions=>{:typeID=>bp.blueprintTypeID}) %>
+	<% item_bp = InvBlueprintTypes.find(:first, :conditions=>{:blueprintTypeID=>bp.blueprintTypeID}) %>
+	<td style="text-align:left"><%= link_to item.typeName, :controller=>'items', :action=>'show', :id=>item_bp.productTypeID %></td>
+	<td style="text-align:center"><% if bp.marketed >0 %>YES<% else %>NO<% end %></td>
+	<td style="text-align:center"><% if bp.original >0 %>YES<% else %>NO<% end %></td>
+	<td ><%= bp.material_efficiency %></td>
+	<td ><%= bp.production_efficiency %></td>
+	<td><%= link_to "Edit", :controller=>'items', :action=>'edit', :id=>bp.blueprintTypeID %></td>
+	<td><%= link_to "Remove", {:controller=>'items', :action=>'destroy', :id=>bp.blueprintTypeID}, :method=>:delete %></td>
+</tr>
+<% end %>
+</table>
+</div>
