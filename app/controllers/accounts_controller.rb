@@ -3,12 +3,11 @@ class AccountsController < ApplicationController
   # GET /accounts.xml
   def index
     @accounts = Account.all
-
   end
 
   # GET /accounts/1
   # GET /accounts/1.xml
-  def index
+  def show
     @account = Account.find(session[:account_id])
   end
 
@@ -16,7 +15,6 @@ class AccountsController < ApplicationController
   # GET /accounts/new.xml
   def new
     @account = Account.new
-
   end
 
   # GET /accounts/1/edit
@@ -80,7 +78,7 @@ class AccountsController < ApplicationController
     passdigest = Digest::SHA1.hexdigest(params[:password])
     if !@account.blank? && passdigest == @account.password
       session[:account_id] = @account.id
-      redirect_to accounts_path and return
+      redirect_to @account and return
     else
       flash[:notice] = "Login failed."
       redirect_to '/login' and return
